@@ -149,7 +149,7 @@ const LoginForm = () => {
       <footer className={classes.loginFooter}>
         <p>All rights reserved.</p>
         <p>NUML Lahore</p>
-        <p>Developed by <a href="github.com/xeeshan-zs" target="_blank" rel="noopener noreferrer">Zeeshan Sarfraz</a></p>
+        <p>Developed by <a href="https://github.com/xeeshan-zs" target="_blank" rel="noopener noreferrer">Zeeshan Sarfraz</a></p>
       </footer>
 
     </div>

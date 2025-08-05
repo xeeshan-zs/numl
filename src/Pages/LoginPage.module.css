@@ -6,7 +6,7 @@
   flex-direction: column;
   min-height: 100vh;
   background: linear-gradient(135deg, #3b82f6, #1e40af);
-  background-attachment: fixed;
+  background-attachment: scroll;
   background-size: cover;
   background-image: url('../assets/11.jpg');
   position: relative;
@@ -319,7 +319,7 @@
 
 @media (max-width: 480px) {
   .formWrapper {
-    width: 90%;
+    width: 80%;
     padding: 1.5rem;
     border-radius: 1rem;
   }
@@ -329,9 +329,14 @@
     padding: 8px 15px;
     font-size: 1rem;
   }
-  .loginHeader{
+
+  .loginFooter{
     padding: 0.5rem 1rem;
-    height: 40px;
-    
+    height: 30px;
+    width: auto;
+  }
+  .container{
+    padding: 50px 0 40px 0;
+    background-image: url('../assets/12.jpg');
   }
 }
