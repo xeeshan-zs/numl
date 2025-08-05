@@ -99,7 +99,11 @@ const LoginForm = () => {
 
       <header className={classes.loginHeader}>
         <img src={studentIcon} alt="icon-of-students"></img>
-        <h1>NUML LAHORE STUDENT PORTAL</h1>
+        <div className={classes.myHead}>
+          <h1>NUML LAHORE</h1>
+          <h3>STUDENT PORTAL</h3>
+        </div>
+
       </header>
       <div className={classes.formWrapper}>
         <div className={classes.tabs}>
