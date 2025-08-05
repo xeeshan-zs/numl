@@ -1,0 +1,139 @@
+/* Main container */
+.studentListContainer {
+  padding: 5px 20px 20px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Title styling */
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 30px;
+  color: #333;
+}
+
+/* Table styling */
+.studentTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  overflow-x: auto;  /* Scroll horizontally if table exceeds width */
+}
+
+/* Table header */
+.studentTable th,
+.studentTable td {
+  padding: 15px 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  white-space: nowrap; /* Prevent text wrapping */
+  cursor:pointer;
+}
+
+.studentTable th {
+  background-color: #4caf50;
+  color: white;
+}
+
+/* Alternate row colors */
+.studentTable tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.studentTable tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+.studentTable tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Action buttons */
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.viewButton,
+.updateButton,
+.deleteButton {
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.viewButton {
+  background-color: #4caf50;
+  color: white;
+}
+
+.updateButton {
+  background-color: #2196f3;
+  color: white;
+}
+
+.deleteButton {
+  background-color: #f44336;
+  color: white;
+}
+
+.loader {
+  display: block;
+  margin: 20px auto 0;
+  width: 50px; /* Optional: Set width for your loader */
+  height: 50px; /* Optional: Set height for your loader */
+  animation: App-logo-spin 2s linear infinite; /* Apply the spin animation */
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+/* Media Queries */
+
+/* Medium-sized screens */
+@media (max-width: 1024px) {
+  .studentTable th,
+  .studentTable td {
+    padding: 12px;
+    font-size: 14px;
+  }
+  .actions {
+  margin-right: 30px;
+}
+}
+
+/* Mobile Devices */
+@media (max-width: 768px) {
+  /* Make table scrollable on mobile */
+  .studentTable {
+    display: block;
+    overflow-x: auto;  /* Enable horizontal scrolling */
+    white-space: nowrap;
+  }
+
+  .studentTable th,
+  .studentTable td {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .viewButton,
+  .updateButton,
+  .deleteButton {
+    padding: 6px 10px;
+  }
+}
