@@ -146,6 +146,11 @@ const LoginForm = () => {
           </button>
         </form>
       </div>
+      <footer className={classes.loginFooter}>
+        <p>All rights reserved.</p>
+        <p>NUML Lahore</p>
+        <p>Developed by <a href="github.com/xeeshan-zs" target="_blank" rel="noopener noreferrer">Zeeshan Sarfraz</a></p>
+      </footer>
 
     </div>
   );
