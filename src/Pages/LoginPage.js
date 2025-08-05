@@ -100,12 +100,6 @@ const LoginForm = () => {
       <header className={classes.loginHeader}>
         <img src={studentIcon} alt="icon-of-students"></img>
         <h1>NUML LAHORE STUDENT PORTAL</h1>
-        <div>
-          {/*<img src={groupIcon} alt="icon-of-students"></img>*/}
-
-          {/*<img src={groupIcon} alt="icon-of-students"></img>*/}
-        </div>
-        {/*<img src={teacherIcon} alt="icon-of-students"></img>*/}
       </header>
       <div className={classes.formWrapper}>
         <div className={classes.tabs}>
