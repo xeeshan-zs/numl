@@ -6,12 +6,14 @@ function PersonalDetails({ user }) {
   const personalDetails = [
     { label: 'Name', value: `${user.firstName} ${user.lastName}` },
     { label: 'Registration Number', value: user.stdRegNumber },
+
     { label: 'Program', value: getProgramName(user.program) },
     { label: 'Semester', value: user.semester },
     {
       label: 'Department',
       value: getDepartmentName(user.department),
     },
+    { label: 'Gender', value: user.gender },
     { label: 'Date of Birth', value: user.dateOfBirth },
   ];
 

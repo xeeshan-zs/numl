@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const StudentPage = () => {
   const { user, logout } = useContext(AppContext);
-  const [activeLink, setActiveLink] = useState('register_courses');
+  const [activeLink, setActiveLink] = useState('details');
   const navigate = useNavigate();
 
   const handleLinkClick = link => {
@@ -22,11 +22,11 @@ const StudentPage = () => {
 
   const side_links = [
     { title: 'Personal Details', link: 'details' },
-    { title: 'Fee Summary', link: 'fee' },
-    { title: 'Academic Records', link: 'academic' },
-    { title: 'Register Course', link: 'register_courses' },
-    { title: 'Enrolled Courses', link: 'enrolled_courses' },
-    { title: 'Datesheet', link: 'datesheet' },
+    // { title: 'Fee Summary', link: 'fee' },
+    // { title: 'Academic Records', link: 'academic' },
+    // { title: 'Register Course', link: 'register_courses' },
+    // { title: 'Enrolled Courses', link: 'enrolled_courses' },
+    // { title: 'Datesheet', link: 'datesheet' },
   ];
 
   return (
@@ -56,7 +56,12 @@ const StudentPage = () => {
                 {item.title}
               </li>
             ))}
+
+            <li onClick={() => window.open('https://students.atrons.net/webpages/result', '_blank')}>
+              Result
+            </li>
           </ul>
+
         </aside>
 
         {/* Content Section */}

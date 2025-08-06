@@ -135,6 +135,7 @@ const RegisterCourses = () => {
           />
         </Modal>
       )}
+
       {/* Loading and Course List */}
       {isLoading && <p>Loading courses...</p>}
       {!isLoading && courses.length === 0 && <p>Registrations are not opened yet!</p>}
