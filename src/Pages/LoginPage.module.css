@@ -1,194 +1,207 @@
-/* LoginPage.module.css */
+:root {
+  --primary-color: #00bcd4;
+  --secondary-color: #2196f3;
+  --white: #ffffff;
+  --light-bg: #f7f9fc;
+  --text-color: #2c3e50;
+  --hover-bg: #e3f2fd;
+  --border-radius: 16px;
+  --transition: 0.3s ease;
+  --box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  --glass-bg: rgba(255, 255, 255, 0.15);
+  --glass-border: rgba(255, 255, 255, 0.25);
+}
 
-/* Container Styles */
 .container {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  background: linear-gradient(135deg, #cbcbd3, #005579);
   justify-content: center;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #cbcbd3, #005579); /* Green gradient */
-  color: #fff;
-  padding: 0 20px;
-  box-sizing: border-box;
+  align-items: center;
+  padding: 32px 16px;
   position: relative;
+}
+
+.registerButton {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  background-color: #ffecb3;
+  color: #5b4b03;
+  border: none;
+  padding: 10px 20px;
+  border-radius: var(--border-radius);
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color var(--transition);
+  box-shadow: var(--box-shadow);
+}
+
+.registerButton:hover {
+  background-color: #ffe066;
 }
 
 .loginHeader {
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 30px;
+  margin-bottom: 24px;
+  gap: 16px;
+  text-align: center;
 }
 
 .loginHeader img {
   width: 60px;
   height: 60px;
-  margin-right: 20px;
+  filter: drop-shadow(0 0 4px white);
 }
 
 .myHead h1 {
-  font-size: 32px;
   margin: 0;
+  color: var(--white);
+  font-size: 2rem;
+  letter-spacing: 1px;
 }
 
 .myHead h3 {
-  font-size: 18px;
-  margin-top: 5px;
+  margin: 0;
+  color: #eef6ff;
+  font-weight: 400;
 }
 
 .formWrapper {
+  backdrop-filter: blur(12px);
+  background-color: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  padding: 40px;
+  border-radius: var(--border-radius);
   width: 100%;
-  max-width: 400px;
-  background-color: rgba(64, 78, 78, 0.7);
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  text-align: center;
+  max-width: 420px;
+  box-shadow: var(--box-shadow);
 }
 
 .tabs {
   display: flex;
-  justify-content: space-around;
-  margin-bottom: 20px;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  gap: 10px;
 }
 
-.tab {
-  font-size: 16px;
-  color: #b0bec5;
+.tab, .active {
+  flex: 1;
+  padding: 12px;
+  text-align: center;
+  border-radius: 8px;
   cursor: pointer;
-  padding: 10px 20px;
-  transition: all 0.3s ease;
-  border-radius: 5px;
+  font-weight: 600;
+  background-color: #e3f2fd;
+  color: #1565c0;
+  transition: all var(--transition);
+}
+
+.tab:hover {
+  background-color: var(--hover-bg);
 }
 
 .active {
-  background-color: #26a69a;
-  color: #fff;
-  font-weight: bold;
+  background-color: var(--primary-color);
+  color: var(--white);
+  box-shadow: var(--box-shadow);
 }
 
 .heading {
-  font-size: 22px;
-  margin-bottom: 20px;
-  font-weight: 600;
-  color: #fff;
+  text-align: center;
+  color: var(--text-color);
+  margin-bottom: 24px;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .inputGroup {
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .input {
-  width: 100%;
-  padding: 12px;
-  font-size: 16px;
-  border: 1px solid #4caf50;
-  border-radius: 5px;
-  background-color: transparent;
-  color: #fff;
-  transition: all 0.3s ease;
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  background-color: var(--light-bg);
+  transition: border-color var(--transition), box-shadow var(--transition);
 }
 
 .input:focus {
+  border-color: var(--secondary-color);
   outline: none;
-  border-color: #26a69a;
+  background-color: #f0faff;
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2);
 }
 
 .button {
-  width: 100%;
-  padding: 12px;
-  font-size: 18px;
-  background-color: #26a69a;
-  color: #fff;
+  background-color: var(--secondary-color);
+  color: var(--white);
   border: none;
-  border-radius: 5px;
+  padding: 14px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background-color var(--transition), transform 0.2s ease;
 }
 
 .button:hover {
-  background-color: #00796b;
+  background-color: #1976d2;
+  transform: translateY(-2px);
 }
 
 .loginFooter {
-  margin-top: 20px;
-  font-size: 12px;
-  color: #2e3032;
+  margin-top: 36px;
   text-align: center;
-}
-
-.loginFooter p {
-  margin: 5px 0;
+  color: var(--white);
+  font-size: 0.9rem;
+  opacity: 0.9;
 }
 
 .loginFooter a {
-    color: #26a69a;
+  color: #fffdc0;
   text-decoration: none;
-  transition: all 0.3s ease;
 }
 
 .loginFooter a:hover {
   text-decoration: underline;
 }
 
-/* Loader Modal Styles */
-.loaderModal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
 
-.loaderModal .message {
-  font-size: 20px;
-  color: #fff;
-  font-weight: 600;
-  text-align: center;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .container {
-    padding: 10px;
-  }
-  .loginHeader{
-    flex-direction: column;
-    align-items: center;
-    top: 14px;
-    position: fixed;
-  }
-
-  .loginFooter{
-    font-size: 12px;
-    color: #2e3032;
-    text-align: center;
-    position: fixed;
-    bottom: 20px;
-  }
+/* RESPONSIVE */
+@media (max-width: 500px) {
   .formWrapper {
-    padding: 15px;
+    padding: 28px 24px;
   }
 
-  /*.tabs {*/
-  /*  flex-direction: column;*/
-  /*}*/
-
-  .tab {
-    margin-bottom: 10px;
+  .loginHeader img {
+    width: 50px;
+    height: 50px;
   }
 
-  .button {
-    font-size: 16px;
+  .myHead h1 {
+    font-size: 1.5rem;
   }
 
-  .heading {
-    font-size: 20px;
+  .tabs {
+    flex-direction: column;
+  }
+
+  .registerButton {
+    top: 10px;
+    left: 10px;
+    padding: 8px 14px;
+    font-size: 0.85rem;
   }
 }
