@@ -79,7 +79,7 @@ const StudentPage = () => {
               {side_links.map((item) =>
                   item.link === 'external' ? (
                       <li key={item.title}>
-                        <a href={item.url} target="_blank" rel="noopener noreferrer">{item.title}</a>
+                        <a href={item.url} target="_self" rel="noopener noreferrer">{item.title}</a>
                       </li>
                   ) : (
                       <li key={item.link}>
