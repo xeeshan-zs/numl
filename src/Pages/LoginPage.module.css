@@ -191,11 +191,11 @@
   }
 
   .myHead h1 {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
 
   .tabs {
-    flex-direction: column;
+    flex-direction: row;
   }
 
   .registerButton {
@@ -204,4 +204,41 @@
     padding: 8px 14px;
     font-size: 0.85rem;
   }
+}
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  .loginHeader {
+    flex-direction: column;
+    align-items: center;
+    top: 14px;
+    position: fixed;
+  }
+
+  .loginFooter {
+    font-size: 12px;
+    color: #2e3032;
+    text-align: center;
+    position: fixed;
+    bottom: 20px;
+  }
+
+  .formWrapper {
+    padding: 15px;
+  }
+
+  .button {
+    font-size: 16px;
+
+  }
+
+    .formWrapper{
+        width: 90%;
+    }
+  .heading {
+    font-size:20px;
+    }
+
 }

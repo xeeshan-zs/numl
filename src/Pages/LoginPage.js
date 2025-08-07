@@ -100,8 +100,8 @@ const LoginForm = () => {
       <header className={classes.loginHeader}>
         <img src={studentIcon} alt="icon-of-students"></img>
         <div className={classes.myHead}>
-          <h1>NUML LAHORE</h1>
-          <h3>STUDENT PORTAL</h3>
+          <h1>National University of Modern Languages</h1>
+          <h3>LAHORE CAMPUS</h3>
         </div>
 
       </header>
@@ -148,7 +148,6 @@ const LoginForm = () => {
       </div>
       <footer className={classes.loginFooter}>
         <p>All rights reserved.</p>
-        <p>NUML Lahore</p>
         <p>Developed by <a href="https://github.com/xeeshan-zs" target="_blank" rel="noopener noreferrer">Zeeshan Sarfraz</a></p>
       </footer>
 
