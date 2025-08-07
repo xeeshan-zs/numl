@@ -1,92 +1,118 @@
-/* General Section Styling */
-.detailsSection {
-  background-color: white;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+/* Root Dashboard Variables - use if not already defined in your global CSS */
+:root {
+  --primary-color: #005579;
+  --text-color: #2c3e50;
+  --bg-light: #f5f7fa;
+  --white: #ffffff;
+  --hover-bg: #e4f1f9;
+  --transition-speed: 0.3s;
+  --border-radius: 10px;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-/* Flexbox to arrange tables side by side */
+/* Section Container */
+.detailsSection {
+  background-color: var(--white);
+  padding: 32px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+  transition: box-shadow var(--transition-speed);
+}
+
+/* Tables Container */
 .tablesContainer {
   display: flex;
   justify-content: space-between;
-  gap: 20px;
+  gap: 24px;
+  flex-wrap: wrap;
 }
 
-/* Table Styling */
+/* Table */
 .table {
   width: 100%;
-  background-color: #f9f9f9;
+  background-color: var(--bg-light);
   border-collapse: collapse;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow);
+  border-radius: var(--border-radius);
+  overflow: hidden;
 }
 
+/* Table Headers */
 .table th {
-  background-color: blueviolet;
-  color: white;
-  padding: 12px;
-  font-size: 18px;
+  background-color: var(--primary-color);
+  color: var(--white);
+  padding: 14px 16px;
+  font-size: 16px;
   text-align: left;
 }
 
-.table td:first-child {
-  font-weight: bold;
-  color: #333;
-  text-align: left;
-}
-
-.table td:nth-child(2) {
-  text-align: left;
-  padding-left: 15px;
-}
-
-
+/* Table Cells */
 .table td {
-  padding: 12px;
-  border: 1px solid #ddd;
+  padding: 14px 16px;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 15px;
+  color: var(--text-color);
+  text-align: left;
 }
 
+/* First Column Emphasis */
+.table td:first-child {
+  font-weight: 600;
+}
+
+/* Row Alternation */
 .table tbody tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: #f9f9f9;
 }
 
+/* Hover Effect */
 .table tbody tr:hover {
-  background-color: #e0f7fa;
+  background-color: var(--hover-bg);
+  cursor: pointer;
 }
 
-/* Use flex-grow to make tables responsive */
-.tablesContainer .table {
-  flex-grow: 1;
-}
-
-.table td, .table th {
-  text-align: center;
-  color: #333;
-}
-
-.table thead tr th {
-  color: #fff;
-}
-
-.emptyMessage{
-  font-size: 20px;
+/* Message for Empty States */
+.emptyMessage {
+  font-size: 18px;
   font-weight: 500;
-  color: #fff;
-  margin-top: 20px;
-  padding: 30px 20px;
-  background: blueviolet;
+  color: var(--white);
+  margin-top: 24px;
+  padding: 24px;
+  background: var(--primary-color);
+  border-radius: var(--border-radius);
+  text-align: center;
 }
 
-/* Responsive Design for smaller screens */
-@media (max-width: 1000px) {
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .table th,
+  .table td {
+    font-size: 14px;
+  }
+
   .tablesContainer {
     flex-direction: column;
     gap: 20px;
   }
-
-  .table th, .table td {
-    font-size: 14px;
-  }
 }
 
+@media (max-width: 480px) {
+  .detailsSection {
+    padding: 20px;
+  }
+
+  .table th,
+  .table td {
+    font-size: 13px;
+    padding: 10px 12px;
+  }
+
+  .emptyMessage {
+    font-size: 16px;
+    padding: 20px;
+  }
+}
+.table tbody tr {
+  transition: background-color 0.25s ease;
+}

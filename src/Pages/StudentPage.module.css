@@ -211,7 +211,7 @@
 
     .logoutButton {
         position: absolute;
-        right: 0;
+        right: 10px;
         width: 20%;
     }
 }
@@ -235,7 +235,7 @@
         font-size: 0.8rem;
         padding: 6px 10px;
         position: absolute;
-        right: 0;
+        right: 10px;
         width: 20%;
     }
 
