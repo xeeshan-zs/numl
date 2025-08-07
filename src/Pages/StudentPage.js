@@ -1,18 +1,16 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import { AppContext } from '../Context/AppContext';
 import StudentDetails from '../student/components/StudentDetails/StudentDetails';
-import styles from './StudentPage.module.css'; // Import CSS module
+import styles from './StudentPage.module.css';
 import { clearLocalStorage } from '../admin/utility/localStorage';
 import { useNavigate } from 'react-router-dom';
 
 const StudentPage = () => {
   const { user, logout } = useContext(AppContext);
-  const [activeLink, setActiveLink] = useState('details');
   const navigate = useNavigate();
-
-  const handleLinkClick = link => {
-    setActiveLink(link);
-  };
+  const [activeLink, setActiveLink] = useState('details');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const sidebarRef = useRef(null);
 
   const handleLogout = () => {
     logout();
@@ -20,56 +18,89 @@ const StudentPage = () => {
     navigate('/home');
   };
 
+  const handleLinkClick = (link) => {
+    setActiveLink(link);
+    setIsSidebarOpen(false); // Close sidebar on mobile after click
+  };
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  // Close sidebar on outside click (mobile)
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+          isSidebarOpen &&
+          sidebarRef.current &&
+          !sidebarRef.current.contains(e.target) &&
+          !e.target.closest(`.${styles.menuButton}`)
+      ) {
+        setIsSidebarOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isSidebarOpen]);
+
   const side_links = [
     { title: 'Personal Details', link: 'details' },
-    // { title: 'Fee Summary', link: 'fee' },
-    // { title: 'Academic Records', link: 'academic' },
-    // { title: 'Register Course', link: 'register_courses' },
-    // { title: 'Enrolled Courses', link: 'enrolled_courses' },
-    // { title: 'Datesheet', link: 'datesheet' },
+    { title: 'Fee Summary', link: 'fee' },
+    { title: 'Academic Records', link: 'academic' },
+    { title: 'Register Course', link: 'register_courses' },
+    { title: 'Enrolled Courses', link: 'enrolled_courses' },
+    { title: 'Datesheet', link: 'datesheet' },
+    { title: 'Result', link: 'external', url: 'https://students.atrons.net/webpages/result' }
   ];
 
   return (
-    <div className={styles.studentPageContainer}>
-      {/* Navbar */}
-      <nav className={styles.navbar}>
-        <h1 className={styles.navbarTitle}>Student Dashboard</h1>
-        <div className={styles.navbarUser}>
-          {`${user.stdRegNumber}`}
-          <button className={styles.logout} onClick={handleLogout}>
-            Log out
-          </button>
+      <div className={styles.container}>
+        {/* Navbar */}
+        <header className={styles.navbar}>
+          <div className={styles.navbarLeft}>
+            <button className={styles.menuButton} onClick={toggleSidebar}>☰</button>
+            <h1 className={styles.heading}>Student Dashboard</h1>
+          </div>
+          <div className={styles.navbarRight}>
+            <span className={styles.username}>{user?.stdRegNumber}</span>
+            <button className={styles.logoutButton} onClick={handleLogout}>Log out</button>
+          </div>
+        </header>
+
+        {/* Layout */}
+        <div className={styles.content}>
+          {/* Sidebar */}
+          <aside
+              ref={sidebarRef}
+              className={`${styles.sidebar} ${isSidebarOpen ? styles.sidebarOpen : ''}`}
+          >
+            <ul className={styles.sidebarLinks}>
+              {side_links.map((item) =>
+                  item.link === 'external' ? (
+                      <li key={item.title}>
+                        <a href={item.url} target="_blank" rel="noopener noreferrer">{item.title}</a>
+                      </li>
+                  ) : (
+                      <li key={item.link}>
+                        <a
+                            onClick={() => handleLinkClick(item.link)}
+                            className={activeLink === item.link ? styles.activeLink : ''}
+                        >
+                          {item.title}
+                        </a>
+                      </li>
+                  )
+              )}
+            </ul>
+          </aside>
+
+          {/* Main Content */}
+          <main className={styles.mainContent}>
+            <StudentDetails activeLink={activeLink} />
+          </main>
         </div>
-      </nav>
-
-      {/* Main layout */}
-      <div className={styles.mainContent}>
-        {/* Sidebar */}
-        <aside className={styles.sidebar}>
-          <ul>
-            {side_links.map(item => (
-              <li
-                key={item.link}
-                className={activeLink === item.link ? styles.active : ''}
-                onClick={() => handleLinkClick(item.link)}
-              >
-                {item.title}
-              </li>
-            ))}
-
-            <li onClick={() => window.open('https://students.atrons.net/webpages/result', '_blank')}>
-              Result
-            </li>
-          </ul>
-
-        </aside>
-
-        {/* Content Section */}
-        <section className={styles.content}>
-          <StudentDetails activeLink={activeLink} />
-        </section>
       </div>
-    </div>
   );
 };
 

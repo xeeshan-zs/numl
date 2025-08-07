@@ -1,117 +1,242 @@
+/* TeacherPage.module.css */
+
+:root {
+  --primary-color: #5ea3c1;
+  --text-color: #2c3e50;
+  --bg-light: #f5f7fa;
+  --white: #ffffff;
+  --hover-bg: #e4f1f9;
+  --transition-speed: 0.3s;
+  --border-radius: 10px;
+  --sidebar-width: 240px;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Container */
 .container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  /* background-color: #000; */
+  min-height: 100vh;
+  background-color: var(--bg-light);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow-x: hidden;
 }
 
+/* Navbar */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem;
-  background-color: blueviolet;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--white);
+  padding: 14px 24px;
+  box-shadow: var(--shadow);
+  flex-wrap: wrap;
 }
 
-.navbarLeft, .navbarRight {
+.navbarLeft {
   display: flex;
   align-items: center;
+  gap: 16px;
 }
 
 .menuButton {
-  display: none;
+  font-size: 26px;
   background: none;
   border: none;
-  font-size: 1.5rem;
+  color: var(--white);
   cursor: pointer;
-  margin-right: 1rem;
-  color: white;
+  display: none;
 }
 
 .heading {
-  margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.navbarRight {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 1rem;
 }
 
 .username {
-  margin-right: 1rem;
+  font-weight: 500;
 }
 
 .logoutButton {
-  padding: 0.5rem 1rem;
-  background-color: white;
-  color: blueviolet;
+  background-color: var(--white);
+  color: var(--primary-color);
   border: none;
-  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 0.95rem;
+  border-radius: var(--border-radius);
   cursor: pointer;
+  font-weight: 600;
+  transition: background-color var(--transition-speed);
 }
 
+.logoutButton:hover {
+  background-color: #f0f0f0;
+}
+
+/* Layout */
 .content {
   display: flex;
   flex: 1;
   overflow: hidden;
+  position: relative;
 }
 
+/* Sidebar */
 .sidebar {
-  width: 250px;
-  background-color: #f0f0f0;
-  padding: 1rem;
-  overflow-y: auto;
+  width: var(--sidebar-width);
+  background-color: var(--white);
+  border-right: 1px solid #ddd;
+  padding: 20px 0;
+  box-shadow: var(--shadow);
+  transition: transform var(--transition-speed);
 }
 
 .sidebarLinks {
-  list-style-type: none;
+  list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .sidebarLinks li {
-  margin-bottom: 1rem;
+  margin-bottom: 10px;
 }
 
 .sidebarLinks a {
-  color: #333;
-  text-decoration: none;
-  padding: 0.5rem;
   display: block;
-  border-radius: 4px;
+  padding: 14px 24px;
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 1rem;
+  transition: all var(--transition-speed);
+}
+
+.sidebarLinks a:hover {
+  background-color: var(--hover-bg);
+  padding-left: 30px;
 }
 
 .activeLink {
-  background-color: blueviolet;
-  color: white !important;
+  background-color: var(--primary-color);
+  color: var(--white);
+  font-weight: 600;
+  border-left: 4px solid var(--white);
 }
 
+/* Main Content */
 .mainContent {
   flex: 1;
-  padding: 2rem;
+  padding: 32px;
+  background-color: var(--bg-light);
   overflow-y: auto;
 }
 
+/* Tablet View */
+@media (max-width: 1024px) {
+  .heading {
+    font-size: 1.4rem;
+  }
+
+  .logoutButton {
+    font-size: 0.85rem;
+    padding: 6px 12px;
+  }
+
+  .sidebar {
+    width: 200px;
+  }
+
+  .mainContent {
+    padding: 24px;
+  }
+}
+
+/* Redesigned Mobile View */
 @media (max-width: 768px) {
   .menuButton {
     display: block;
+    width: 49px;
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 16px;
+  }
+
+  .navbarRight {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .content {
+    flex-direction: column;
   }
 
   .sidebar {
     position: fixed;
-    left: -250px;
     top: 0;
-    bottom: 0;
-    transition: left 0.3s ease;
+    left: 0;
+    height: 100%;
+    transform: translateX(-100%);
+    width: 220px;
     z-index: 1000;
-    background-color: white;
+    transition: transform var(--transition-speed);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 0 10px 10px 0;
   }
 
   .sidebarOpen {
-    left: 0;
+    transform: translateX(0);
+  }
+
+  .sidebarLinks a {
+    font-size: 1.1rem;
+    padding: 16px 24px;
+  }
+
+  .mainContent {
+    padding: 20px;
+  }
+  .logoutButton{
+    position: absolute;
+    right: 0;
+    width: 20%;
+  }
+}
+
+/* Extra Small Devices */
+@media (max-width: 480px) {
+  .menuButton{
+    width: 49px;
+  }
+  .sidebarLinks a {
+    font-size: 1rem;
+    padding: 14px 20px;
+  }
+
+  .mainContent {
+    padding: 16px;
+  }
+
+  .logoutButton {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+    position: absolute;
+    right: 0;
+    width: 20%;
   }
 
   .heading {
-    font-size: 1.2rem;
-  }
-
-  .username {
-    display: none;
+    font-size: 1.3rem;
   }
 }

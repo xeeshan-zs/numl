@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import { AppContext } from '../Context/AppContext';
 
 import styles from './TeacherPage.module.css';
@@ -12,12 +12,20 @@ const TeacherPage = () => {
   const { user, logout } = useContext(AppContext);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeLink, setActiveLink] = useState('Details');
+  const sidebarRef = useRef(null);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  const handleLogout = () => logout();
+  const handleLogout = () => {
+    logout();
+  };
+
+  const handleLinkClick = (link) => {
+    setActiveLink(link);
+    setIsSidebarOpen(false); // Close sidebar on link click (for mobile)
+  };
 
   const renderContent = () => {
     switch (activeLink) {
@@ -34,43 +42,64 @@ const TeacherPage = () => {
     }
   };
 
+  // Click outside handler to close sidebar
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+          isSidebarOpen &&
+          sidebarRef.current &&
+          !sidebarRef.current.contains(event.target) &&
+          !event.target.closest(`.${styles.menuButton}`)
+      ) {
+        setIsSidebarOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isSidebarOpen]);
+
   return (
-    <div className={styles.container}>
-      <nav className={styles.navbar}>
-        <div className={styles.navbarLeft}>
-          <button className={styles.menuButton} onClick={toggleSidebar}>
-            ☰
-          </button>
-          <h1 className={styles.heading}>Teacher Dashboard</h1>
-        </div>
-        <div className={styles.navbarRight}>
-          <span className={styles.username}>{user.teacherName}</span>
-          <button className={styles.logoutButton} onClick={handleLogout}>
-            Logout
-          </button>
-        </div>
-      </nav>
+      <div className={styles.container}>
+        <nav className={styles.navbar}>
+          <div className={styles.navbarLeft}>
+            <button className={styles.menuButton} onClick={toggleSidebar}>
+              ☰
+            </button>
+            <h1 className={styles.heading}>Teacher Dashboard</h1>
+          </div>
+          <div className={styles.navbarRight}>
+            <span className={styles.username}>{user.teacherName}</span>
+            <button className={styles.logoutButton} onClick={handleLogout}>
+              Logout
+            </button>
+          </div>
+        </nav>
 
-      <div className={styles.content}>
-        <aside className={`${styles.sidebar} ${isSidebarOpen ? styles.sidebarOpen : ''}`}>
-          <ul className={styles.sidebarLinks}>
-            {['Details', 'Courses', 'Attendance', 'Grades'].map(link => (
-              <li key={link}>
-                <a
-                  href={`#${link.toLowerCase()}`}
-                  className={activeLink === link ? styles.activeLink : ''}
-                  onClick={() => setActiveLink(link)}
-                >
-                  {link}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </aside>
+        <div className={styles.content}>
+          {/* Sidebar with ref */}
+          <aside
+              ref={sidebarRef}
+              className={`${styles.sidebar} ${isSidebarOpen ? styles.sidebarOpen : ''}`}
+          >
+            <ul className={styles.sidebarLinks}>
+              {['Details', 'Courses', 'Attendance', 'Grades'].map((link) => (
+                  <li key={link}>
+                    <a
+                        href={`#${link.toLowerCase()}`}
+                        className={activeLink === link ? styles.activeLink : ''}
+                        onClick={() => handleLinkClick(link)}
+                    >
+                      {link}
+                    </a>
+                  </li>
+              ))}
+            </ul>
+          </aside>
 
-        <main className={styles.mainContent}>{renderContent()}</main>
+          {/* Main content */}
+          <main className={styles.mainContent}>{renderContent()}</main>
+        </div>
       </div>
-    </div>
   );
 };
 
