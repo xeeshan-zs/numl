@@ -1,4 +1,5 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+
 
 import AddStudent from './components/AddStudent/AddStudent';
 import AddProgram from './components/AddProgram/AddProgram';
@@ -7,19 +8,20 @@ import AddTeacher from './components/AddTeacher/AddTeacher';
 import AddAdmin from './components/AddAdmin/AddAdmin';
 import AddDepartment from './components/AddDepartment/AddDepartment';
 import StudentList from './components/AddStudent/StudentsList';
+import AddExam from './components/AddExam/AddExam';
 
 import { clearLocalStorage } from './utility/localStorage';
 import { AppContext } from '../Context/AppContext';
 
 import classes from './Admin.module.css';
-import AddExam from './components/AddExam/AddExam';
 
 function Admin() {
   const { logout, user } = useContext(AppContext);
   const [activeComponent, setActiveComponent] = useState('view-students');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const sidebarRef = useRef(null);
   const { adminName } = user;
 
-  // Function to render the selected component
   const renderComponent = () => {
     switch (activeComponent) {
       case 'students':
@@ -49,8 +51,9 @@ function Admin() {
   };
 
   const sideLinks = [
-    { link: 'view-students', label: 'View Student' },
+    { link: 'view-students', label: 'View Students' },
     { link: 'students', label: 'Add Students' },
+    { link: 'admins', label: 'Add Admins' },
     { link: 'programs', label: 'Add Programs' },
     { link: 'courses', label: 'Add Courses' },
     { link: 'exams', label: 'Add Exams' },
@@ -58,37 +61,69 @@ function Admin() {
     { link: 'departments', label: 'Add Departments' },
   ];
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+          isSidebarOpen &&
+          sidebarRef.current &&
+          !sidebarRef.current.contains(e.target) &&
+          !e.target.closest(`.${classes.menuButton}`)
+      ) {
+        setIsSidebarOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isSidebarOpen]);
+
   return (
-    <div className={classes.adminContainer}>
-      {/* Navbar */}
-      <div className={classes.navbar}>
-        <div className={classes.logo}>ADMIN DASHBOARD</div>
-        <div className={classes.navRight}>
-          <p className={classes.adminName}>{adminName || 'ADMIN_123'}</p>
-          <button className={classes.logoutButton} onClick={handleLogout}>
-            Logout
-          </button>
+      <div className={classes.container}>
+        {/* Navbar */}
+        <header className={classes.navbar}>
+          <div className={classes.navbarLeft}>
+            <button className={classes.menuButton} onClick={toggleSidebar}>☰</button>
+            <h1 className={classes.heading}>Admin Dashboard</h1>
+          </div>
+          <div className={classes.navbarRight}>
+            <span className={classes.username}>{adminName || 'ADMIN_123'}</span>
+            <button className={classes.logoutButton} onClick={handleLogout}>Logout</button>
+          </div>
+        </header>
+
+        {/* Layout */}
+        <div className={classes.content}>
+          {/* Sidebar */}
+          <aside
+              ref={sidebarRef}
+              className={`${classes.sidebar} ${isSidebarOpen ? classes.sidebarOpen : ''}`}
+          >
+            <ul className={classes.sidebarLinks}>
+              {sideLinks.map((item) => (
+                  <li
+                      key={item.link}
+                      className={activeComponent === item.link ? classes.activeLink : ''}
+                      onClick={() => {
+                        setActiveComponent(item.link);
+                        setIsSidebarOpen(false); // Close sidebar on click (mobile)
+                      }}
+                  >
+                    {item.label}
+                  </li>
+              ))}
+            </ul>
+          </aside>
+
+          {/* Main Content */}
+          <main className={classes.mainContent}>
+            {renderComponent()}
+          </main>
         </div>
       </div>
-      <div className={classes.mainContent}>
-        <div className={classes.sidebar}>
-          <ul className={classes.sidebarList}>
-            {sideLinks.map((item, i) => {
-              return (
-                <li
-                  className={activeComponent === `${item.link}` ? classes.active : ''}
-                  onClick={() => setActiveComponent(`${item.link}`)}
-                  key={i}
-                >
-                  {`${item.label}`}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-        <div className={classes.content}>{renderComponent()}</div>
-      </div>
-    </div>
   );
 }
 

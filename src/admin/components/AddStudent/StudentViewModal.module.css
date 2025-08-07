@@ -1,91 +1,135 @@
+:root {
+  --primary-color: #5dc4e6;
+  --text-color: #2c3e50;
+  --bg-light: #f5f7fa;
+  --white: #ffffff;
+  --hover-bg: #e4f1f9;
+  --transition-speed: 0.3s;
+  --border-radius: 12px;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  --max-modal-width: 600px;
+}
+
+/* Modal overlay */
 .modalOverlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow-y: auto; 
-}
-
-/*
-.modalContent::-webkit-scrollbar {
-  width: 5px; 
-}
-
-.modalContent::-webkit-scrollbar-thumb {
-  background-color: #8a8a8a; 
-}
-
-.modalContent::-webkit-scrollbar-thumb:hover {
-  background-color: #e0e0e0; 
-}
-
-.modalContent::-webkit-scrollbar-track {
-  background-color: #fff; 
-}*/
-
-.modalContent {
-  background-color: white;
+  z-index: 2000;
   padding: 20px;
-  width: 80%;
-  max-width: 600px;
-  max-height: 90vh; /* Limit height to 90% of the viewport height */
-  overflow-y: auto; /* Add vertical scroll if content exceeds viewport */
-  position: relative;
 }
 
+/* Modal content box */
+.modalContent {
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  padding: 24px 28px;
+  width: 100%;
+  max-width: var(--max-modal-width);
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow-y: auto;
+  max-height: 90vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.modalContent h2 {
+  margin-bottom: 20px;
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+/* Close button */
 .closeButton {
   position: absolute;
-  top: 15px;
-  right: 15px;
-  padding: 0;
+  top: 12px;
+  right: 12px;
+  font-size: 20px;
+  background: none;
   border: none;
+  color: #888;
   cursor: pointer;
-  background-color: #fff;
+  transition: color 0.2s ease;
 }
 
-.closeButton:hover{
-  background-color: #fff;
+.closeButton:hover {
+  color: var(--primary-color);
 }
 
-h2 {
-  text-align: left;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-  padding-left: 20px;
-}
-
+/* Table styling */
 .studentTable {
   width: 100%;
   border-collapse: collapse;
 }
 
 .studentTable td {
-  padding: 10px;
-}
-
-.studentTable tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-.studentTable tr:nth-child(odd) {
-  background-color: #ffffff;
-}
-
-.studentTable td {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
+  padding: 10px 8px;
+  vertical-align: top;
 }
 
 .label {
-  font-weight: bold;
-  text-align: right;
-  padding-right: 20px;
+  font-weight: 600;
+  color: var(--text-color);
+  width: 40%;
 }
-.value{
-  text-align: left;
+
+.value {
+  color: #555;
+  word-break: break-word;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .modalContent {
+    padding: 20px;
+  }
+
+  .closeButton{
+    top: 0;
+    left: 0;
+    width: 60px;
+  }
+  .modalContent h2 {
+    font-size: 1.3rem;
+  }
+
+  .label {
+    width: 35%;
+    font-size: 0.95rem;
+  }
+
+  .value {
+    font-size: 0.95rem;
+  }
+
+  .closeButton {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modalContent {
+    padding: 16px;
+  }
+
+  .label,
+  .value {
+    font-size: 0.9rem;
+  }
+  .closeButton{
+    top: 0;
+    left: 0;
+    width: 60px;
+  }
+
+  .modalContent h2 {
+    font-size: 1.2rem;
+  }
 }
