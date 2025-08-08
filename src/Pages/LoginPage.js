@@ -148,7 +148,7 @@ const LoginForm = () => {
       </div>
       <footer className={classes.loginFooter}>
         <p>All rights reserved.</p>
-        <p>Developed by <a href="https://github.com/xeeshan-zs" target="_blank" rel="noopener noreferrer">Zeeshan Sarfraz</a></p>
+        <p>Developed by <a href="https://github.com/xeeshan-zs" target="_self" rel="noopener noreferrer">Zeeshan Sarfraz</a></p>
       </footer>
 
     </div>
