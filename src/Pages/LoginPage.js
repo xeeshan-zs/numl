@@ -5,8 +5,6 @@ import { db } from '../firebaseConfig';
 import { saveToLocalStorage } from '../admin/utility/localStorage';
 
 import studentIcon from '../assets/student.png';
-import teacherIcon from '../assets/teacher.png';
-import groupIcon from '../assets/student-group.png';
 
 import { AppContext } from '../Context/AppContext';
 
@@ -18,9 +16,10 @@ const LoginForm = () => {
   const [active, setActive] = useState('STUDENT');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { login } = useContext(AppContext);
 
+  const { login } = useContext(AppContext);
   const navigate = useNavigate();
 
   const goToRegister = () => navigate('/register');
@@ -42,13 +41,9 @@ const LoginForm = () => {
 
     try {
       let collectionName = '';
-      if (active === 'STUDENT') {
-        collectionName = 'students';
-      } else if (active === 'TEACHER') {
-        collectionName = 'teachers';
-      } else if (active === 'ADMIN') {
-        collectionName = 'admins';
-      }
+      if (active === 'STUDENT') collectionName = 'students';
+      else if (active === 'TEACHER') collectionName = 'teachers';
+      else if (active === 'ADMIN') collectionName = 'admins';
 
       const querySnapshot = await getDocs(collection(db, collectionName));
 
@@ -64,14 +59,14 @@ const LoginForm = () => {
 
       if (foundUser) {
         if (foundUser.password === password) {
-          console.log(active.toLowerCase(), 'logged In!');
-
           clearInputs();
           login(foundUser, active.toLowerCase());
+
           saveToLocalStorage('IS_LOGGED_IN', true);
+          saveToLocalStorage('REMEMBER_ME', rememberMe);
           saveToLocalStorage('USER_TYPE', `_${active.toUpperCase()}_`);
-          console.log({ userId });
           saveToLocalStorage('PRIMARY_KEY', userId);
+
           setLoading(false);
           navigate(`/${active.toLowerCase()}`);
         } else {
@@ -84,74 +79,92 @@ const LoginForm = () => {
       }
     } catch (error) {
       setLoading(false);
-      console.error('Error during login:', error);
+      console.error('Login error:', error);
       alert('Login failed. Please try again later.');
     }
   };
 
   return (
-    <div className={classes.container}>
-      {loading && <LoaderModal message="Logging in!" />}
-      {/* Add Register Button */}
-      {/*<button className={classes.registerButton} onClick={goToRegister}>*/}
-      {/*  Admin Register*/}
-      {/*</button>*/}
+      <div className={classes.container}>
+        {loading && <LoaderModal message="Logging in!" />}
 
-      <header className={classes.loginHeader}>
-        <img src={studentIcon} alt="icon-of-students"></img>
-        <div className={classes.myHead}>
-          <h1>National University of Modern Languages</h1>
-          <h3>LAHORE CAMPUS</h3>
+        <header className={classes.loginHeader}>
+          <img src={studentIcon} alt="icon-of-students" />
+          <div className={classes.myHead}>
+            <h1>National University of Modern Languages</h1>
+            <h3>LAHORE CAMPUS</h3>
+          </div>
+        </header>
+
+        <div className={classes.formWrapper}>
+          <div className={classes.tabs}>
+            <div
+                className={active === 'STUDENT' ? classes.active : classes.tab}
+                onClick={() => handleTabs('STUDENT')}
+            >
+              Student
+            </div>
+            <div
+                className={active === 'TEACHER' ? classes.active : classes.tab}
+                onClick={() => handleTabs('TEACHER')}
+            >
+              Teacher
+            </div>
+            <div
+                className={active === 'ADMIN' ? classes.active : classes.tab}
+                onClick={() => handleTabs('ADMIN')}
+            >
+              Admin
+            </div>
+          </div>
+
+          <h2 className={classes.heading}>{`${active} LOGIN`}</h2>
+          <form onSubmit={handleSubmit} className={classes.form}>
+            <div className={classes.inputGroup}>
+              <input
+                  type="text"
+                  value={username}
+                  onChange={e => setUsername(e.target.value)}
+                  className={classes.input}
+                  placeholder="Username"
+                  required
+              />
+            </div>
+            <div className={classes.inputGroup}>
+              <input
+                  type="password"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  className={classes.input}
+                  placeholder="Password"
+                  required
+              />
+            </div>
+            <div className={classes.checkboxGroup}>
+              <input
+                  type="checkbox"
+                  id="rememberMe"
+                  checked={rememberMe}
+                  onChange={() => setRememberMe(prev => !prev)}
+              />
+              <label htmlFor="rememberMe">Remember Me</label>
+            </div>
+            <button type="submit" className={classes.button}>
+              LOGIN
+            </button>
+          </form>
         </div>
 
-      </header>
-      <div className={classes.formWrapper}>
-        <div className={classes.tabs}>
-          <div className={[active === 'STUDENT' ? classes.active : classes.tab]} onClick={() => handleTabs('STUDENT')}>
-            Student
-          </div>
-          <div className={[active === 'TEACHER' ? classes.active : classes.tab]} onClick={() => handleTabs('TEACHER')}>
-            Teacher
-          </div>
-          <div className={[active === 'ADMIN' ? classes.active : classes.tab]} onClick={() => handleTabs('ADMIN')}>
-            Admin
-          </div>
-        </div>
-        <h2 className={classes.heading}>{`${active} LOGIN`}</h2>
-        <form onSubmit={handleSubmit} className={classes.form}>
-          <div className={classes.inputGroup}>
-            <input
-              id="username"
-              type="text"
-              value={username}
-              onChange={e => setUsername(e.target.value)}
-              className={classes.input}
-              placeholder="Username"
-              required
-            />
-          </div>
-          <div className={classes.inputGroup}>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              className={classes.input}
-              placeholder="Password"
-              required
-            />
-          </div>
-          <button type="submit" className={classes.button}>
-            LOGIN
-          </button>
-        </form>
+        <footer className={classes.loginFooter}>
+          <p>All rights reserved.</p>
+          <p>
+            Developed by{' '}
+            <a href="https://github.com/xeeshan-zs" target="_self" rel="noopener noreferrer">
+              Zeeshan Sarfraz
+            </a>
+          </p>
+        </footer>
       </div>
-      <footer className={classes.loginFooter}>
-        <p>All rights reserved.</p>
-        <p>Developed by <a href="https://github.com/xeeshan-zs" target="_self" rel="noopener noreferrer">Zeeshan Sarfraz</a></p>
-      </footer>
-
-    </div>
   );
 };
 

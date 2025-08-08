@@ -20,14 +20,13 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const isLoggedIn = getFromLocalStorage('IS_LOGGED_IN');
-  const userType = getFromLocalStorage('USER_TYPE');
-  const primaryKey = getFromLocalStorage('PRIMARY_KEY');
-
   useEffect(() => {
-    if (location.pathname === '/register') {
-      return;
-    }
+    if (location.pathname === '/register') return;
+
+    const rememberMe = getFromLocalStorage('REMEMBER_ME') === true || getFromLocalStorage('REMEMBER_ME') === 'true';
+    const isLoggedIn = getFromLocalStorage('IS_LOGGED_IN') === true || getFromLocalStorage('IS_LOGGED_IN') === 'true';
+    const userType = getFromLocalStorage('USER_TYPE');
+    const primaryKey = getFromLocalStorage('PRIMARY_KEY');
 
     const fetchUserInfo = async () => {
       try {
@@ -45,70 +44,71 @@ function App() {
         const userDocRef = doc(db, collectionMap[userType], primaryKey);
         const role = roleMap[userType];
 
-        // Fetch user data from Firestore
         const userDoc = await getDoc(userDocRef);
         if (userDoc.exists()) {
           const userData = userDoc.data();
-          console.log('BEING PASSED : ', { userData });
           login(userData, role);
+
+          const pageMap = {
+            _ADMIN_: '/admin',
+            _STUDENT_: '/student',
+            _TEACHER_: '/teacher',
+          };
+          navigate(pageMap[userType] || '/home');
         } else {
           console.error('No such document found!');
+          clearLocalStorage();
+          navigate('/home');
         }
       } catch (error) {
         console.error('Error fetching user info:', error);
+        clearLocalStorage();
+        navigate('/home');
       }
     };
 
-    if (!isLoggedIn || !primaryKey) {
-      console.log('CLEARING STORAGE');
+    if (!isLoggedIn || !rememberMe || !userType || !primaryKey) {
       clearLocalStorage();
       navigate('/home');
     } else {
       fetchUserInfo();
-      const pageMap = {
-        _ADMIN_: '/admin',
-        _STUDENT_: '/student',
-        _TEACHER_: '/teacher',
-      };
-      console.log('TYPE', pageMap[userType]);
-      navigate(pageMap[userType] || '/home');
     }
   }, []);
 
   return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<Navigate to="/home" />} />
-        <Route path="/register" element={<AdminRegister />} />
-        <Route path="/home" element={<LoginPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route
-          path="/admin"
-          element={
-            <PrivateRoute>
-              <AdminPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/student"
-          element={
-            <PrivateRoute>
-              <StudentPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/teacher"
-          element={
-            <PrivateRoute>
-              <TeacherPage />
-            </PrivateRoute>
-          }
-        />
-        <Route path="*" element={<Navigate to="/home" />} />
-      </Routes>
-    </div>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Navigate to="/home" />} />
+          <Route path="/register" element={<AdminRegister />} />
+          <Route path="/home" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route
+              path="/admin"
+              element={
+                <PrivateRoute>
+                  <AdminPage />
+                </PrivateRoute>
+              }
+          />
+          <Route
+              path="/student"
+              element={
+                <PrivateRoute>
+                  <StudentPage />
+                </PrivateRoute>
+              }
+          />
+          <Route
+              path="/teacher"
+              element={
+                <PrivateRoute>
+                  <TeacherPage />
+                </PrivateRoute>
+              }
+          />
+          <Route path="*" element={<Navigate to="/home" />} />
+        </Routes>
+      </div>
   );
 }
 
