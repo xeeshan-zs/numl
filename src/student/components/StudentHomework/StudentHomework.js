@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../../../firebaseConfig';
 import { AppContext } from '../../../Context/AppContext';
-import styles from './StudentHomework.css';
+import styles from './StudentHomework.module.css';
 
 const StudentHomework = () => {
     const { user } = useContext(AppContext);

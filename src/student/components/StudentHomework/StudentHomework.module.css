@@ -1,0 +1,162 @@
+:root {
+    --primary-color: #5ea3c1;
+    --text-color: #2c3e50;
+    --bg-light: #f5f7fa;
+    --white: #ffffff;
+    --hover-bg: #e4f1f9;
+    --transition-speed: 0.3s;
+    --border-radius: 10px;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Container */
+.container {
+    background-color: var(--white);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 32px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    max-width: 1100px;
+    margin: auto;
+    margin-bottom: 24px;
+    transition: box-shadow var(--transition-speed);
+}
+
+/* Heading */
+.heading {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+/* Table Wrapper */
+.tableWrapper {
+    overflow-x: auto;
+    border-radius: var(--border-radius);
+}
+
+/* Table */
+.homeworkTable {
+    width: 100%;
+    background-color: var(--bg-light);
+    border-collapse: collapse;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+/* Table headers */
+.homeworkTable th {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 14px 16px;
+    font-size: 16px;
+    text-align: left;
+    cursor: pointer;
+    user-select: none;
+}
+
+.homeworkTable th:hover {
+    background-color: #00415e;
+}
+
+/* Table cells */
+.homeworkTable td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 15px;
+    color: var(--text-color);
+    text-align: left;
+}
+
+/* First column emphasis */
+.homeworkTable td:first-child {
+    font-weight: 600;
+}
+
+/* Row alternation (zebra striping) */
+.homeworkTable tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Hover effect */
+.homeworkTable tbody tr:hover {
+    background-color: var(--hover-bg);
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+}
+
+/* Submission link button */
+.submissionLink {
+    padding: 6px 12px;
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: background-color var(--transition-speed);
+    display: inline-block;
+}
+
+.submissionLink:hover {
+    background-color: #00415e;
+}
+
+/* Overdue deadlines */
+.overdue {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+/* Messages */
+.message {
+    text-align: center;
+    padding: 20px 0;
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.messageError {
+    text-align: center;
+    padding: 20px 0;
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+/* Mobile friendly */
+/*@media (max-width: 768px) {*/
+/*    .homeworkTable, .homeworkTable thead, .homeworkTable tbody, .homeworkTable th, .homeworkTable td, .homeworkTable tr {*/
+/*        display: block;*/
+/*        width: 100%;*/
+/*    }*/
+
+/*    .homeworkTable thead {*/
+/*        display: none;*/
+/*    }*/
+
+/*    .homeworkTable tr {*/
+/*        background: var(--white);*/
+/*        margin-bottom: 16px;*/
+/*        border-radius: var(--border-radius);*/
+/*        box-shadow: var(--shadow);*/
+/*        padding: 12px;*/
+/*    }*/
+
+/*    .homeworkTable td {*/
+/*        border: none;*/
+/*        position: relative;*/
+/*        padding-left: 45%;*/
+/*        text-align: left;*/
+/*    }*/
+
+/*    .homeworkTable td::before {*/
+/*        content: attr(data-label);*/
+/*        position: absolute;*/
+/*        left: 16px;*/
+/*        font-weight: 600;*/
+/*        color: var(--primary-color);*/
+/*    }*/
+/*}*/
