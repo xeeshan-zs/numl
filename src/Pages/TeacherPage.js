@@ -54,12 +54,12 @@ const TeacherPage = () => {
     switch (activeLink) {
       case "Details":
         return <TeacherDetails teacher={user} />;
-      case "Courses":
-        return <CoursesTaken teacher={user} />;
-      case "Attendance":
-        return <AttendanceMarked teacher={user} />;
-      case "Grades":
-        return <GradesMarked teacher={user} />;
+      // case "Courses":
+      //   return <CoursesTaken teacher={user} />;
+      // case "Attendance":
+      //   return <AttendanceMarked teacher={user} />;
+      // case "Grades":
+      //   return <GradesMarked teacher={user} />;
       case "Add Homework":
         return <AddHomework teacher={user} />;
       case "View Homework":
@@ -122,9 +122,9 @@ const TeacherPage = () => {
             <ul className={styles.sidebarLinks}>
               {[
                 "Details",
-                "Courses",
-                "Attendance",
-                "Grades",
+                // "Courses",
+                // "Attendance",
+                // "Grades",
                 "Add Homework",
                 "View Homework",
               ].map((link) => (

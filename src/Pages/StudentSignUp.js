@@ -1,37 +1,22 @@
 import React, { useState } from "react";
-import { db } from '../firebaseConfig';
+import { db } from "../firebaseConfig";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
-import studentIcon from '../assets/student.png';
-import classes from "./LoginPage.module.css"; // same style as login
+import studentIcon from "../assets/student.png";
+import classes from "./LoginPage.module.css";
 
 export default function SignupForm() {
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
-        gender: "",
-        dateOfBirth: "",
-        cnic: "",
-        contactNumber: "",
-        email: "",
-        password: "",
-        fatherName: "",
-        fatherOccupation: "",
+        stdRegNumber: "",
         department: "",
         program: "",
-        section: "",
         semester: "",
-        stdRegNumber: "",
+        section: "",
         username: "",
-        address: {
-            city: "",
-            houseNo: "",
-            street: "",
-            town: ""
-        },
-        feeSummary: [],
-        prevAcademicRecord: []
+        password: ""
     });
 
     const [regNumberError, setRegNumberError] = useState("");
@@ -40,25 +25,21 @@ export default function SignupForm() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        if (name.startsWith("address.")) {
-            const key = name.split(".")[1];
-            setFormData((prev) => ({
-                ...prev,
-                address: { ...prev.address, [key]: value }
-            }));
+
+        // Trim trailing spaces for username
+        if (name === "username") {
+            setFormData((prev) => ({ ...prev, [name]: value.replace(/\s+$/, "") }));
         } else {
             setFormData((prev) => ({ ...prev, [name]: value }));
         }
     };
 
-    // Check registration number uniqueness
+
     const checkRegNumber = async () => {
         if (!formData.stdRegNumber.trim()) return;
-
         try {
             const docRef = doc(db, "students", formData.stdRegNumber);
             const docSnap = await getDoc(docRef);
-
             if (docSnap.exists()) {
                 setRegNumberError("This registration number is already registered.");
                 setIsRegNumberValid(false);
@@ -81,8 +62,28 @@ export default function SignupForm() {
             return;
         }
 
+        // Prepare data with "nil" defaults
+        const fullData = {
+            ...formData,
+            gender: "nil",
+            dateOfBirth: "nil",
+            cnic: "nil",
+            contactNumber: "nil",
+            email: "nil",
+            fatherName: "nil",
+            fatherOccupation: "nil",
+            address: {
+                city: "nil",
+                houseNo: "nil",
+                street: "nil",
+                town: "nil"
+            },
+            feeSummary: [],
+            prevAcademicRecord: []
+        };
+
         try {
-            await setDoc(doc(db, "students", formData.stdRegNumber), formData);
+            await setDoc(doc(db, "students", formData.stdRegNumber), fullData);
             alert("Student registered successfully!");
             navigate("/login");
         } catch (error) {
@@ -93,7 +94,6 @@ export default function SignupForm() {
 
     return (
         <div className={classes.container}>
-            {/* HEADER */}
             <header className={classes.loginHeader}>
                 <img src={studentIcon} alt="icon-of-students" />
                 <div className={classes.myHead}>
@@ -102,88 +102,12 @@ export default function SignupForm() {
                 </div>
             </header>
 
-            {/* FORM */}
             <div className={classes.formWrapper}>
                 <h2 className={classes.heading}>STUDENT SIGNUP</h2>
                 <form onSubmit={handleSubmit} className={classes.form}>
-                    {/* Basic Info */}
                     <input name="firstName" value={formData.firstName} onChange={handleChange} placeholder="First Name" required className={classes.input} />
                     <input name="lastName" value={formData.lastName} onChange={handleChange} placeholder="Last Name" required className={classes.input} />
-                    <select name="gender" value={formData.gender} onChange={handleChange} required className={classes.input}>
-                        <option value="">Select Gender</option>
-                        <option value="M">Male</option>
-                        <option value="F">Female</option>
-                    </select>
-                    <label>Date of Birth:
-                    <input type="date" name="dateOfBirth" value={formData.dateOfBirth} onChange={handleChange} required className={classes.input} />
-                    </label>
-                    {/* CNIC & Contact */}
-                    <input name="cnic" value={formData.cnic} onChange={handleChange} placeholder="CNIC" required className={classes.input} />
-                    <input name="contactNumber" value={formData.contactNumber} onChange={handleChange} placeholder="Contact Number" required className={classes.input} />
-                    <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" required className={classes.input} />
-                    <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Password" required className={classes.input} />
 
-                    {/* Father Info */}
-                    <input name="fatherName" value={formData.fatherName} onChange={handleChange} placeholder="Father Name" className={classes.input} />
-                    <input name="fatherOccupation" value={formData.fatherOccupation} onChange={handleChange} placeholder="Father Occupation" className={classes.input} />
-
-                    {/* Academic Info */}
-                    <select
-                        name="department"
-                        value={formData.department}
-                        onChange={handleChange}
-                        required
-                        className={classes.input}
-                    >
-                        <option value="">Select Department</option>
-                        <option value="CS">Computer Science</option>
-
-                    </select>
-
-                    <select
-                        name="program"
-                        value={formData.program}
-                        onChange={handleChange}
-                        required
-                        className={classes.input}
-                    >
-                        <option value="">Select Program</option>
-                        <option value="BCS">BS Computer Science</option>
-                        <option value="BSE">BS Software Engineering</option>
-
-                    </select>
-
-                    <select
-                        name="section"
-                        value={formData.section}
-                        onChange={handleChange}
-                        required
-                        className={classes.input}
-                    >
-                        <option value="">Select Section</option>
-                        <option value="1">A</option>
-                        <option value="2">B</option>
-                    </select>
-
-                    <select
-                        name="semester"
-                        value={formData.semester}
-                        onChange={handleChange}
-                        required
-                        className={classes.input}
-                    >
-                        <option value="">Select Semester</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                    </select>
-
-                    {/* Registration Number with validation */}
                     <input
                         name="stdRegNumber"
                         value={formData.stdRegNumber}
@@ -194,21 +118,36 @@ export default function SignupForm() {
                         className={classes.input}
                     />
                     {regNumberError && (
-                        <p style={{ color: "red", fontSize: "0.85rem", marginTop: "-10px" }}>
-                            {regNumberError}
-                        </p>
+                        <p style={{ color: "red", fontSize: "0.85rem", marginTop: "-10px" }}>{regNumberError}</p>
                     )}
 
+                    <select name="department" value={formData.department} onChange={handleChange} required className={classes.input}>
+                        <option value="">Select Department</option>
+                        <option value="CS">Computer Science</option>
+                    </select>
+
+                    <select name="program" value={formData.program} onChange={handleChange} required className={classes.input}>
+                        <option value="">Select Program</option>
+                        <option value="BCS">BS Computer Science</option>
+                        <option value="BSE">BS Software Engineering</option>
+                    </select>
+
+                    <select name="section" value={formData.section} onChange={handleChange} required className={classes.input}>
+                        <option value="">Select Section</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                    </select>
+
+                    <select name="semester" value={formData.semester} onChange={handleChange} required className={classes.input}>
+                        <option value="">Select Semester</option>
+                        {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
+                            <option key={num} value={num}>{num}</option>
+                        ))}
+                    </select>
+
                     <input name="username" value={formData.username} onChange={handleChange} placeholder="Username" required className={classes.input} />
+                    <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Password" required className={classes.input} />
 
-                    {/* Address */}
-                    <h3 style={{ marginTop: "10px", textAlign: "center" }}>Address</h3>
-                    <input name="address.city" value={formData.address.city} onChange={handleChange} placeholder="City" className={classes.input} />
-                    <input name="address.houseNo" value={formData.address.houseNo} onChange={handleChange} placeholder="House No" className={classes.input} />
-                    <input name="address.street" value={formData.address.street} onChange={handleChange} placeholder="Street" className={classes.input} />
-                    <input name="address.town" value={formData.address.town} onChange={handleChange} placeholder="Town" className={classes.input} />
-
-                    {/* Buttons */}
                     <div className={classes.buttonGroup}>
                         <button type="submit" className={classes.button} disabled={!isRegNumberValid}>
                             SIGN UP
@@ -220,7 +159,6 @@ export default function SignupForm() {
                 </form>
             </div>
 
-            {/* FOOTER */}
             <footer className={classes.loginFooter}>
                 <p>All rights reserved.</p>
                 <p>
