@@ -1,0 +1,230 @@
+.teacher-container {
+    padding: 20px;
+    max-width: 1000px;
+    margin: auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.teacher-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+/* Table */
+.teacher-table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: var(--shadow);
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.teacher-table th,
+.teacher-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.teacher-table th {
+    background-color: var(--bg-light);
+    font-weight: bold;
+}
+
+/* Buttons */
+.update-btn {
+    background-color: #2196f3;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    transition: background-color var(--transition-speed);
+}
+
+.update-btn:hover {
+    background-color: #1976d2;
+}
+
+.delete-btn {
+    background-color: var(--danger-color);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    transition: background-color var(--transition-speed);
+}
+
+.delete-btn:hover {
+    background-color: #d32f2f;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    width: 450px;
+    max-width: 90%;
+    box-shadow: var(--shadow);
+}
+
+.modal-content input,
+.modal-content textarea {
+    width: 100%;
+    margin: 8px 0;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.save-btn {
+    background-color: var(--success-color);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: var(--border-radius);
+}
+
+.cancel-btn {
+    background-color: gray;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    margin-left: 5px;
+}
+.teacher-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.search-box {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 250px;
+    font-size: 14px;
+}
+/* Animate modal fade-in */
+.modal {
+    animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.update-form label {
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 600;
+    color: #333;
+}
+
+.update-form input[type="text"],
+.update-form input[type="url"],
+.update-form input[type="date"],
+.update-form select,
+.update-form textarea {
+    width: 100%;
+    padding: 8px 10px;
+    margin-top: 4px;
+    border-radius: var(--border-radius);
+    border: 1px solid #ccc;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.update-form input[type="text"]:focus,
+.update-form input[type="url"]:focus,
+.update-form input[type="date"]:focus,
+.update-form select:focus,
+.update-form textarea:focus {
+    outline: none;
+    border-color: #2196f3;
+    box-shadow: 0 0 4px #2196f3;
+}
+
+.update-form textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.modal-content {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+/* Adjust modal actions */
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    gap: 10px;
+}
+.modal label{
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 600;
+    color: #333;
+}
+.save-btn {
+    background-color: #4caf50;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.save-btn:hover {
+    background-color: #388e3c;
+}
+
+.cancel-btn {
+    background-color: #9e9e9e;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cancel-btn:hover {
+    background-color: #616161;
+}

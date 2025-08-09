@@ -1,48 +1,84 @@
-import React, { useContext, useState, useEffect, useRef } from 'react';
-import { AppContext } from '../Context/AppContext';
+import React, { useContext, useState, useEffect, useRef } from "react";
+import { AppContext } from "../Context/AppContext";
 
-import styles from './TeacherPage.module.css';
+import styles from "./TeacherPage.module.css";
 
-import TeacherDetails from '../teacher/components/TeacherDetails/TeacherDetails';
-import CoursesTaken from '../teacher/components/CoursesTaken/CoursesTaken';
-import AttendanceMarked from '../teacher/components/AttendanceMarked/AttendanceMarked';
-import GradesMarked from '../teacher/components/GradesMarked/GradesMarked';
+import TeacherDetails from "../teacher/components/TeacherDetails/TeacherDetails";
+import CoursesTaken from "../teacher/components/CoursesTaken/CoursesTaken";
+import AttendanceMarked from "../teacher/components/AttendanceMarked/AttendanceMarked";
+import GradesMarked from "../teacher/components/GradesMarked/GradesMarked";
+import AddHomework from "../teacher/components/Homework/AddHomework";
+import ViewHomeworkModal from "../teacher/components/Homework/ViewHomeworkModal";
+import UpdateHomeworkModal from "../teacher/components/Homework/UpdateHomeworkModal";
 
 const TeacherPage = () => {
   const { user, logout } = useContext(AppContext);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState('Details');
+  const [activeLink, setActiveLink] = useState("Details");
   const sidebarRef = useRef(null);
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+  // Homework modal states
+  const [selectedHomework, setSelectedHomework] = useState(null);
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
 
-  const handleLogout = () => {
-    logout();
-  };
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+  const handleLogout = () => logout();
 
   const handleLinkClick = (link) => {
     setActiveLink(link);
-    setIsSidebarOpen(false); // Close sidebar on link click (for mobile)
+    setIsSidebarOpen(false);
+  };
+
+  const handleViewHomework = (homework) => {
+    setSelectedHomework(homework);
+    setIsViewModalOpen(true);
+  };
+
+  const handleUpdateHomework = (homework) => {
+    setSelectedHomework(homework);
+    setIsUpdateModalOpen(true);
+  };
+
+  const closeViewModal = () => {
+    setIsViewModalOpen(false);
+    setSelectedHomework(null);
+  };
+
+  const closeUpdateModal = () => {
+    setIsUpdateModalOpen(false);
+    setSelectedHomework(null);
   };
 
   const renderContent = () => {
     switch (activeLink) {
-      case 'Details':
+      case "Details":
         return <TeacherDetails teacher={user} />;
-      case 'Courses':
+      case "Courses":
         return <CoursesTaken teacher={user} />;
-      case 'Attendance':
+      case "Attendance":
         return <AttendanceMarked teacher={user} />;
-      case 'Grades':
+      case "Grades":
         return <GradesMarked teacher={user} />;
+      case "Add Homework":
+        return <AddHomework teacher={user} />;
+      case "View Homework":
+        return (
+            <div>
+              {/* Pass in handlers for view/update */}
+              <ViewHomeworkModal
+                  teacher={user}
+                  onView={handleViewHomework}
+                  onUpdate={handleUpdateHomework}
+              />
+            </div>
+        );
       default:
         return <TeacherDetails teacher={user} />;
     }
   };
 
-  // Click outside handler to close sidebar
+  // Close sidebar when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -54,8 +90,8 @@ const TeacherPage = () => {
         setIsSidebarOpen(false);
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isSidebarOpen]);
 
   return (
@@ -76,17 +112,26 @@ const TeacherPage = () => {
         </nav>
 
         <div className={styles.content}>
-          {/* Sidebar with ref */}
+          {/* Sidebar */}
           <aside
               ref={sidebarRef}
-              className={`${styles.sidebar} ${isSidebarOpen ? styles.sidebarOpen : ''}`}
+              className={`${styles.sidebar} ${
+                  isSidebarOpen ? styles.sidebarOpen : ""
+              }`}
           >
             <ul className={styles.sidebarLinks}>
-              {['Details', 'Courses', 'Attendance', 'Grades'].map((link) => (
+              {[
+                "Details",
+                "Courses",
+                "Attendance",
+                "Grades",
+                "Add Homework",
+                "View Homework",
+              ].map((link) => (
                   <li key={link}>
                     <a
-                        href={`#${link.toLowerCase()}`}
-                        className={activeLink === link ? styles.activeLink : ''}
+                        href={`#${link.toLowerCase().replace(/\s+/g, "-")}`}
+                        className={activeLink === link ? styles.activeLink : ""}
                         onClick={() => handleLinkClick(link)}
                     >
                       {link}
@@ -99,6 +144,21 @@ const TeacherPage = () => {
           {/* Main content */}
           <main className={styles.mainContent}>{renderContent()}</main>
         </div>
+
+        {/* Global Modals */}
+        {isViewModalOpen && selectedHomework && (
+            <ViewHomeworkModal
+                homework={selectedHomework}
+                onClose={closeViewModal}
+            />
+        )}
+
+        {isUpdateModalOpen && selectedHomework && (
+            <UpdateHomeworkModal
+                homework={selectedHomework}
+                onClose={closeUpdateModal}
+            />
+        )}
       </div>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import { AppContext } from '../Context/AppContext';
 import StudentDetails from '../student/components/StudentDetails/StudentDetails';
+import StudentHomework from '../student/components/StudentHomework/StudentHomework';  // updated import
 import styles from './StudentPage.module.css';
 import { clearLocalStorage } from '../admin/utility/localStorage';
 import { useNavigate } from 'react-router-dom';
@@ -51,6 +52,7 @@ const StudentPage = () => {
     { title: 'Register Course', link: 'register_courses' },
     { title: 'Enrolled Courses', link: 'enrolled_courses' },
     { title: 'Datesheet', link: 'datesheet' },
+    { title: 'View Homework', link: 'homework' }, // new link added here
     { title: 'Result', link: 'external', url: 'https://students.atrons.net/webpages/result' }
   ];
 
@@ -86,6 +88,7 @@ const StudentPage = () => {
                         <a
                             onClick={() => handleLinkClick(item.link)}
                             className={activeLink === item.link ? styles.activeLink : ''}
+                            href="#!"
                         >
                           {item.title}
                         </a>
@@ -97,7 +100,11 @@ const StudentPage = () => {
 
           {/* Main Content */}
           <main className={styles.mainContent}>
-            <StudentDetails activeLink={activeLink} />
+            {activeLink === 'homework' ? (
+                <StudentHomework />
+            ) : (
+                <StudentDetails activeLink={activeLink} />
+            )}
           </main>
         </div>
       </div>
