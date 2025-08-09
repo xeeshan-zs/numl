@@ -180,7 +180,7 @@ export default function SignupForm() {
                         value={formData.stdRegNumber}
                         onChange={handleChange}
                         onBlur={checkRegNumber}
-                        placeholder="Student Reg Number"
+                        placeholder="Roll Number"
                         required
                         className={classes.input}
                     />
