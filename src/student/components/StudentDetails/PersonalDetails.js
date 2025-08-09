@@ -119,13 +119,13 @@ function PersonalDetails({ user }) {
                   <input id="stdRegNumber" name="stdRegNumber" value={formData.stdRegNumber} onChange={handleChange} placeholder="Registration Number" />
 
                   <label htmlFor="program">Program</label>
-                  <input id="program" name="program" value={formData.program} onChange={handleChange} placeholder="Program" />
+                  <input id="program" name="program" value={formData.program} onChange={handleChange} placeholder="Program" disabled />
 
                   <label htmlFor="semester">Semester</label>
                   <input id="semester" name="semester" value={formData.semester} onChange={handleChange} placeholder="Semester" />
 
                   <label htmlFor="department">Department</label>
-                  <input id="department" name="department" value={formData.department} onChange={handleChange} placeholder="Department" />
+                  <input id="department" name="department" value={formData.department} onChange={handleChange} placeholder="Department" disabled  />
 
                   <label htmlFor="gender">Gender</label>
                   <input id="gender" name="gender" value={formData.gender} onChange={handleChange} placeholder="Gender" />
