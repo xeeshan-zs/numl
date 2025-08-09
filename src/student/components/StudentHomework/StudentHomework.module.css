@@ -126,37 +126,3 @@
     font-weight: bold;
 }
 
-/* Mobile friendly */
-/*@media (max-width: 768px) {*/
-/*    .homeworkTable, .homeworkTable thead, .homeworkTable tbody, .homeworkTable th, .homeworkTable td, .homeworkTable tr {*/
-/*        display: block;*/
-/*        width: 100%;*/
-/*    }*/
-
-/*    .homeworkTable thead {*/
-/*        display: none;*/
-/*    }*/
-
-/*    .homeworkTable tr {*/
-/*        background: var(--white);*/
-/*        margin-bottom: 16px;*/
-/*        border-radius: var(--border-radius);*/
-/*        box-shadow: var(--shadow);*/
-/*        padding: 12px;*/
-/*    }*/
-
-/*    .homeworkTable td {*/
-/*        border: none;*/
-/*        position: relative;*/
-/*        padding-left: 45%;*/
-/*        text-align: left;*/
-/*    }*/
-
-/*    .homeworkTable td::before {*/
-/*        content: attr(data-label);*/
-/*        position: absolute;*/
-/*        left: 16px;*/
-/*        font-weight: 600;*/
-/*        color: var(--primary-color);*/
-/*    }*/
-/*}*/

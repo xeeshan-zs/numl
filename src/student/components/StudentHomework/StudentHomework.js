@@ -70,6 +70,33 @@ const StudentHomework = () => {
         return 0;
     });
 
+    const formatDeadline = (dateString) => {
+        const date = new Date(dateString);
+        const today = new Date();
+        const tomorrow = new Date();
+        const yesterday = new Date();
+
+        today.setHours(0, 0, 0, 0);
+        tomorrow.setDate(today.getDate() + 1);
+        tomorrow.setHours(0, 0, 0, 0);
+        yesterday.setDate(today.getDate() - 1);
+        yesterday.setHours(0, 0, 0, 0);
+
+        const deadlineDay = new Date(date);
+        deadlineDay.setHours(0, 0, 0, 0);
+
+        if (deadlineDay.getTime() === today.getTime()) {
+            return `Today ${date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}`;
+        } else if (deadlineDay.getTime() === tomorrow.getTime()) {
+            return `Tomorrow ${date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}`;
+        } else if (deadlineDay.getTime() === yesterday.getTime()) {
+            return `Yesterday ${date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}`;
+        }
+
+        return `${date.getDate()}-${date.toLocaleString('en-US', { month: 'long' })}-${date.getFullYear()} ${date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}`;
+    };
+
+
     const requestSort = (key) => {
         let direction = 'asc';
         if (sortConfig.key === key && sortConfig.direction === 'asc') {
@@ -105,8 +132,9 @@ const StudentHomework = () => {
                             <td>{hw.title}</td>
                             <td>{hw.description}</td>
                             <td className={new Date(hw.deadline) < new Date() ? styles.overdue : ''}>
-                                {hw.deadline}
+                                {formatDeadline(hw.deadline)}
                             </td>
+
                             <td>
                                 {hw.submissionLink ? (
                                     <a href={hw.submissionLink} target="_blank" rel="noreferrer" className={styles.submissionLink}>
