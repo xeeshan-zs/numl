@@ -116,3 +116,98 @@
 .table tbody tr {
   transition: background-color 0.25s ease;
 }
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.updateBtn {
+  background: #5ec181;
+  border: gray;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.updateBtn:hover {
+  background: #0056b3;
+}
+
+/* Modal Styling */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.form input {
+  width: 100%;
+  padding: 6px;
+  margin: 6px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modalActions button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.modalActions button:first-child {
+  background: #28a745;
+  color: white;
+}
+
+.modalActions button:last-child {
+  background: #dc3545;
+  color: white;
+}@media (max-width: 480px) {
+  .form input {
+    font-size: 14px;
+    padding: 6px 8px;
+  }
+
+  .form label {
+    font-size: 13px;
+  }
+
+  .modal {
+    width: 90%;
+    padding: 16px;
+  }
+
+  .updateBtn{
+    width: 25%;
+    top: 110px;
+    right: 36px;
+    position: absolute;
+  }
+}
+

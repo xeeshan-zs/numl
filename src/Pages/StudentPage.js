@@ -47,11 +47,11 @@ const StudentPage = () => {
 
   const side_links = [
     { title: 'Personal Details', link: 'details' },
-    { title: 'Fee Summary', link: 'fee' },
-    { title: 'Academic Records', link: 'academic' },
-    { title: 'Register Course', link: 'register_courses' },
-    { title: 'Enrolled Courses', link: 'enrolled_courses' },
-    { title: 'Datesheet', link: 'datesheet' },
+    // { title: 'Fee Summary', link: 'fee' },
+    // { title: 'Academic Records', link: 'academic' },
+    // { title: 'Register Course', link: 'register_courses' },
+    // { title: 'Enrolled Courses', link: 'enrolled_courses' },
+    // { title: 'Datesheet', link: 'datesheet' },
     { title: 'View Homework', link: 'homework' }, // new link added here
     { title: 'Result', link: 'external', url: 'https://students.atrons.net/webpages/result' }
   ];
