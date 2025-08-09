@@ -132,9 +132,9 @@ const AddStudent = () => {
     <div className={classes['form-container']}>
       <h2 className={classes['form-heading']}>Add New Student</h2>
       {/* New button to add default students */}
-      <button onClick={addDefaultStudents} className={classes['submit-button']}>
-        ADD DEFAULT STUDENTS
-      </button>
+      {/*<button onClick={addDefaultStudents} className={classes['submit-button']}>*/}
+      {/*  ADD DEFAULT STUDENTS*/}
+      {/*</button>*/}
       <form onSubmit={handleSubmit} className={classes['student-form']}>
         <div className={classes['section']}>
           <h3>Student Information</h3>

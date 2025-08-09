@@ -26,20 +26,20 @@ function Admin() {
     switch (activeComponent) {
       case 'students':
         return <AddStudent />;
-      case 'programs':
-        return <AddProgram />;
-      case 'courses':
-        return <AddCourse />;
+      // case 'programs':
+      //   return <AddProgram />;
+      // case 'courses':
+      //   return <AddCourse />;
       case 'teachers':
         return <AddTeacher />;
       case 'admins':
         return <AddAdmin />;
-      case 'departments':
-        return <AddDepartment />;
+      // case 'departments':
+      //   return <AddDepartment />;
       case 'view-students':
         return <StudentList />;
-      case 'exams':
-        return <AddExam />;
+      // case 'exams':
+      //   return <AddExam />;
       default:
         return <StudentList />;
     }
@@ -54,11 +54,11 @@ function Admin() {
     { link: 'view-students', label: 'View Students' },
     { link: 'students', label: 'Add Students' },
     { link: 'admins', label: 'Add Admins' },
-    { link: 'programs', label: 'Add Programs' },
-    { link: 'courses', label: 'Add Courses' },
-    { link: 'exams', label: 'Add Exams' },
+    // { link: 'programs', label: 'Add Programs' },
+    // { link: 'courses', label: 'Add Courses' },
+    // { link: 'exams', label: 'Add Exams' },
     { link: 'teachers', label: 'Add Teachers' },
-    { link: 'departments', label: 'Add Departments' },
+    // { link: 'departments', label: 'Add Departments' },
   ];
 
   const toggleSidebar = () => {

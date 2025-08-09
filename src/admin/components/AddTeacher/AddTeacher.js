@@ -63,9 +63,9 @@ const AddTeacher = () => {
 
   return (
     <div className={styles['form-container']}>
-      <button onClick={addDefaultTeachers} className={styles['default-button']}>
-        Add Default Teachers
-      </button>
+      {/*<button onClick={addDefaultTeachers} className={styles['default-button']}>*/}
+      {/*  Add Default Teachers*/}
+      {/*</button>*/}
       <h2>Add New Teacher</h2>
       <form onSubmit={handleSubmit} className={styles['teacher-form']}>
         <input

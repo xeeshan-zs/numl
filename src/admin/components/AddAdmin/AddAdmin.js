@@ -57,9 +57,9 @@ const AddAdmin = () => {
 
   return (
     <div className={styles['form-container']}>
-      <button onClick={addDefaultAdmins} className={styles['default-button']}>
-        Add Default Admins
-      </button>
+      {/*<button onClick={addDefaultAdmins} className={styles['default-button']}>*/}
+      {/*  Add Default Admins*/}
+      {/*</button>*/}
       <h2>Add New Admin</h2>
       <form onSubmit={handleSubmit} className={styles['admin-form']}>
         <input
