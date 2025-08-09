@@ -14,6 +14,7 @@ import { clearLocalStorage, getFromLocalStorage } from './admin/utility/localSto
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from './firebaseConfig';
 import AdminRegister from './admin/admin-register';
+import StudentSignUp from './Pages/StudentSignUp'; // ✅ NEW IMPORT
 
 function App() {
   const { login } = useContext(AppContext);
@@ -21,10 +22,12 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname === '/register') return;
+    if (location.pathname === '/register' || location.pathname === '/student-signup') return; // ✅ Skip auto-redirect for signup
 
-    const rememberMe = getFromLocalStorage('REMEMBER_ME') === true || getFromLocalStorage('REMEMBER_ME') === 'true';
-    const isLoggedIn = getFromLocalStorage('IS_LOGGED_IN') === true || getFromLocalStorage('IS_LOGGED_IN') === 'true';
+    const rememberMe =
+        getFromLocalStorage('REMEMBER_ME') === true || getFromLocalStorage('REMEMBER_ME') === 'true';
+    const isLoggedIn =
+        getFromLocalStorage('IS_LOGGED_IN') === true || getFromLocalStorage('IS_LOGGED_IN') === 'true';
     const userType = getFromLocalStorage('USER_TYPE');
     const primaryKey = getFromLocalStorage('PRIMARY_KEY');
 
@@ -80,6 +83,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />
           <Route path="/register" element={<AdminRegister />} />
+          <Route path="/student-signup" element={<StudentSignUp />} /> {/* ✅ NEW ROUTE */}
           <Route path="/home" element={<LoginPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route

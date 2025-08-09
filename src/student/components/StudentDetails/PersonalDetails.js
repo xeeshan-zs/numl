@@ -55,7 +55,7 @@ function PersonalDetails({ user }) {
     { label: "Father's Name", value: user.fatherName },
     { label: "Father's Occupation", value: user.fatherOccupation },
     { label: 'Username', value: user.username },
-    { label: 'Password', value: '••••••••' }, // Masked
+    // { label: 'Password', value: '••••••••' }, // Masked
   ];
 
   return (

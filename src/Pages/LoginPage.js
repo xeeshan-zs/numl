@@ -23,19 +23,20 @@ const LoginForm = () => {
   const navigate = useNavigate();
 
   const goToRegister = () => navigate('/register');
+  const goToStudentSignUp = () => navigate('/student-signup');
 
   const clearInputs = () => {
     setUsername('');
     setPassword('');
   };
 
-  const handleTabs = current => {
+  const handleTabs = (current) => {
     if (active === current) return;
     clearInputs();
     setActive(current);
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
@@ -49,7 +50,7 @@ const LoginForm = () => {
 
       let foundUser = null;
       let userId = '';
-      querySnapshot.forEach(doc => {
+      querySnapshot.forEach((doc) => {
         const userData = doc.data();
         if (userData.username === username) {
           foundUser = userData;
@@ -124,7 +125,7 @@ const LoginForm = () => {
               <input
                   type="text"
                   value={username}
-                  onChange={e => setUsername(e.target.value)}
+                  onChange={(e) => setUsername(e.target.value)}
                   className={classes.input}
                   placeholder="Username"
                   required
@@ -134,7 +135,7 @@ const LoginForm = () => {
               <input
                   type="password"
                   value={password}
-                  onChange={e => setPassword(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                   className={classes.input}
                   placeholder="Password"
                   required
@@ -145,13 +146,26 @@ const LoginForm = () => {
                   type="checkbox"
                   id="rememberMe"
                   checked={rememberMe}
-                  onChange={() => setRememberMe(prev => !prev)}
+                  onChange={() => setRememberMe((prev) => !prev)}
               />
               <label htmlFor="rememberMe">Remember Me</label>
             </div>
-            <button type="submit" className={classes.button}>
-              LOGIN
-            </button>
+
+            <div className={classes.buttonGroup}>
+              <button type="submit" className={classes.button}>
+                LOGIN
+              </button>
+
+              {active === 'STUDENT' && (
+                  <button
+                      type="button"
+                      className={`${classes.button} ${classes.signupButton}`}
+                      onClick={goToStudentSignUp}
+                  >
+                    SIGN UP
+                  </button>
+              )}
+            </div>
           </form>
         </div>
 
