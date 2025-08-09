@@ -148,3 +148,24 @@
     font-size: 1.3rem;
   }
 }
+.searchInput {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 12px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.searchInput:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 6px rgba(93, 196, 230, 0.4);
+}
+
+.searchInput::placeholder {
+  color: #999;
+  font-style: italic;
+}
